@@ -44,7 +44,7 @@ class ExpenseTest(TestCase):
 
         test_expense = Expense.objects.create(
             name='expense_test_name', definition='expense_test_definition', category=test_category,
-            amount=999.99, created_at=datetime(2020, 1, 1))
+            amount=999.990, created_at=datetime(2020, 1, 1))
         test_expense.save()
 
     def test_expense_owner(self):
@@ -62,5 +62,5 @@ class ExpenseTest(TestCase):
         self.assertEqual(name, 'expense_test_name')
         self.assertEqual(definition, 'expense_test_definition')
         self.assertEqual(category_name, 'category_test_name')
-        self.assertEqual(amount, 999.99)
+        self.assertEqual(amount, 999.999)
         self.assertEqual(created_at, datetime(2020, 1, 1).date())
