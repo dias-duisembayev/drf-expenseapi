@@ -1,24 +1,38 @@
-from rest_framework import generics
+from rest_framework import generics, permissions
 
 from .models import Category, Expense
-from.serializers import CategorySerializer, ExpenseSerializer
+from .serializers import CategorySerializer, ExpenseSerializer
 
 
 class CategoryList(generics.ListAPIView):
-    queryset = Category.objects.all()
+    permission_classes = (permissions.IsAuthenticated,)
     serializer_class = CategorySerializer
+
+    def get_queryset(self):
+        user = self.request.user
+        return Category.objects.filter(owner=user)
 
 
 class CategoryDetail(generics.RetrieveUpdateDestroyAPIView):
-    queryset = Category.objects.all()
+    permission_classes = (permissions.IsAuthenticated,)
     serializer_class = CategorySerializer
+
+    def get_object(self):
+        category_id = self.kwargs['category_id']
+        return Category.objects.get(id=category_id)
 
 
 class ExpenseList(generics.ListAPIView):
-    queryset = Expense.objects.all()
+    permission_classes = (permissions.IsAuthenticated,)
     serializer_class = ExpenseSerializer
+
+    def get_queryset(self):
+        user = self.request.user
+        category_id = self.kwargs['category_id']
+        return Expense.objects.filter(category=category_id, category__owner=user)
 
 
 class ExpenseDetail(generics.RetrieveUpdateDestroyAPIView):
+    permission_classes = (permissions.IsAuthenticated,)
     queryset = Expense.objects.all()
     serializer_class = ExpenseSerializer
