@@ -34,5 +34,9 @@ class ExpenseList(generics.ListAPIView):
 
 class ExpenseDetail(generics.RetrieveUpdateDestroyAPIView):
     permission_classes = (permissions.IsAuthenticated,)
-    queryset = Expense.objects.all()
     serializer_class = ExpenseSerializer
+
+    def get_object(self):
+        user = self.request.user
+        expense_id = self.kwargs['expense_id']
+        return Expense.objects.get(id=expense_id, category__owner=user)
