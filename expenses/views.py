@@ -5,6 +5,11 @@ from .serializers import CategorySerializer, ExpenseSerializer
 from .permissions import IsCategoryOwner
 
 
+class SingleCategory(generics.CreateAPIView):
+    permission_classes = (permissions.IsAuthenticated,)
+    serializer_class = CategorySerializer
+
+
 class CategoryList(generics.ListAPIView):
     permission_classes = (permissions.IsAuthenticated,)
     serializer_class = CategorySerializer
@@ -23,6 +28,11 @@ class CategoryDetail(generics.RetrieveUpdateDestroyAPIView):
         obj = Category.objects.get(id=category_id)
         self.check_object_permissions(self.request, obj)
         return obj
+
+
+class SingleExpense(generics.CreateAPIView):
+    permission_classes = (permissions.IsAuthenticated,)
+    serializer_class = ExpenseSerializer
 
 
 class ExpenseList(generics.ListAPIView):
