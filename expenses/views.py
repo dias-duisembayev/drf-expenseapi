@@ -9,6 +9,9 @@ class SingleCategory(generics.CreateAPIView):
     permission_classes = (permissions.IsAuthenticated,)
     serializer_class = CategorySerializer
 
+    def perform_create(self, serializer):
+        serializer.save(owner=self.request.user)
+
 
 class CategoryList(generics.ListAPIView):
     permission_classes = (permissions.IsAuthenticated,)
@@ -33,6 +36,11 @@ class CategoryDetail(generics.RetrieveUpdateDestroyAPIView):
 class SingleExpense(generics.CreateAPIView):
     permission_classes = (permissions.IsAuthenticated,)
     serializer_class = ExpenseSerializer
+
+    def perform_create(self, serializer):
+        category_id = self.kwargs['category_id']
+        category = Category.objects.get(id=category_id)
+        serializer.save(category=category)
 
 
 class ExpenseList(generics.ListAPIView):

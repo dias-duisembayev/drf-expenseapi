@@ -7,11 +7,11 @@ class CategorySerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Category
-        fields = ('id', 'name', 'definition', 'owner')
+        fields = ('id', 'name', 'definition')
 
 
 class ExpenseSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Expense
-        fields = ('id', 'name', 'definition', 'category', 'amount', 'created_at')
+        fields = ('id', 'name', 'definition', 'amount', 'created_at')
