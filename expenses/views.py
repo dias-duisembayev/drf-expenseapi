@@ -5,7 +5,7 @@ from .serializers import CategorySerializer, ExpenseSerializer
 from .permissions import IsCategoryOwner
 
 
-class SingleCategory(generics.CreateAPIView):
+class CategoryCreation(generics.CreateAPIView):
     permission_classes = (permissions.IsAuthenticated,)
     serializer_class = CategorySerializer
 
@@ -33,7 +33,7 @@ class CategoryDetail(generics.RetrieveUpdateDestroyAPIView):
         return obj
 
 
-class SingleExpense(generics.CreateAPIView):
+class ExpenseCreation(generics.CreateAPIView):
     permission_classes = (permissions.IsAuthenticated,)
     serializer_class = ExpenseSerializer
 
