@@ -44,7 +44,7 @@ class ExpenseTest(TestCase):
 
         test_expense = Expense.objects.create(
             name='expense_test_name', definition='expense_test_definition', category=test_category,
-            amount=999.990, created_at=datetime(2020, 1, 1))
+            amount=999.999, created_at=datetime(2020, 1, 1))
         test_expense.save()
 
     def test_expense_owner(self):
