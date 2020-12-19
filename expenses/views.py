@@ -43,7 +43,7 @@ class ExpenseCreation(generics.CreateAPIView):
         serializer.save(category=category)
 
 
-class ExpenseList(generics.ListAPIView):
+class ExpenseListByCategory(generics.ListAPIView):
     permission_classes = (permissions.IsAuthenticated, IsCategoryOwner)
     serializer_class = ExpenseSerializer
 
@@ -53,6 +53,15 @@ class ExpenseList(generics.ListAPIView):
         category = Category.objects.get(id=category_id)
         self.check_object_permissions(self.request, category)
         return Expense.objects.filter(category=category_id, category__owner=user)
+
+
+class ExpenseListAll(generics.ListAPIView):
+    permission_classes = (permissions.IsAuthenticated,)
+    serializer_class = ExpenseSerializer
+
+    def get_queryset(self):
+        user = self.request.user
+        return Expense.objects.filter(category__owner=user).order_by('created_at')
 
 
 class ExpenseDetail(generics.RetrieveUpdateDestroyAPIView):
