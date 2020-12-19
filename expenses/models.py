@@ -3,6 +3,7 @@ from django.contrib.auth.models import User
 
 
 class Category(models.Model):
+    """A Category model"""
     name = models.CharField(max_length=50)
     definition = models.TextField(blank=True, default='')
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -15,6 +16,7 @@ class Category(models.Model):
 
 
 class Expense(models.Model):
+    """An Expense model"""
     name = models.CharField(max_length=50)
     definition = models.TextField(blank=True, default='')
     category = models.ForeignKey(Category, on_delete=models.CASCADE)

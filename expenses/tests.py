@@ -6,9 +6,11 @@ from .models import Category, Expense
 
 
 class CategoryTest(TestCase):
+    """A Test class for testing a Category model"""
 
     @classmethod
     def setUpTestData(cls):
+        """Setting up a test user and a Category owned by that user"""
         test_user = User.objects.create_user(username='test_user', password='123123')
         test_user.save()
 
@@ -17,6 +19,7 @@ class CategoryTest(TestCase):
         test_category.save()
 
     def test_category_content(self):
+        """Asserting contents of the Category"""
         category = Category.objects.get(id=1)
         name = f'{category.name}'
         definition = f'{category.definition}'
@@ -27,9 +30,11 @@ class CategoryTest(TestCase):
 
 
 class ExpenseTest(TestCase):
+    """A Test class for testing an Expense model"""
 
     @classmethod
     def setUpTestData(cls):
+        """Setting up multiple users, Categories and an Expense"""
         test_user = User.objects.create_user(username='test_user', password='123123')
         test_user.save()
         test_unused_user = User.objects.create_user(username='test_unused_user', password='123123')
@@ -48,11 +53,13 @@ class ExpenseTest(TestCase):
         test_expense.save()
 
     def test_expense_owner(self):
+        """Testing Expense owner trough FK relation of Expense's Category"""
         expense = Expense.objects.get(id=1)
         category = expense.category
         self.assertEqual(f'{category.owner}', 'test_user')
 
     def test_expense_content(self):
+        """Asserting contents of the Expense"""
         expense = Expense.objects.get(id=1)
         name = f'{expense.name}'
         definition = f'{expense.definition}'

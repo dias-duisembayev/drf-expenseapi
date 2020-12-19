@@ -4,6 +4,7 @@ from .models import Category, Expense
 
 
 class CategorySerializer(serializers.ModelSerializer):
+    """A serializer for a Category model"""
 
     class Meta:
         model = Category
@@ -11,6 +12,7 @@ class CategorySerializer(serializers.ModelSerializer):
 
 
 class ExpenseSerializer(serializers.ModelSerializer):
+    """A serializer for a Category model"""
 
     class Meta:
         model = Expense
