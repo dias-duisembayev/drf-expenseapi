@@ -61,7 +61,7 @@ class ExpenseListAll(generics.ListAPIView):
 
     def get_queryset(self):
         user = self.request.user
-        return Expense.objects.filter(category__owner=user).order_by('created_at')
+        return Expense.objects.filter(category__owner=user).order_by('-created_at')
 
 
 class ExpenseDetail(generics.RetrieveUpdateDestroyAPIView):
