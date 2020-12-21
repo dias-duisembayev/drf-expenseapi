@@ -73,6 +73,11 @@ class ExpenseListAll(generics.ListAPIView):
     def get_queryset(self):
         """Return a query set of a user's all expenses ordered by created_at field (descending)"""
         user = self.request.user
+        if 'start_date' in self.kwargs and 'end_date' in self.kwargs:
+            start_date = self.kwargs['start_date']
+            end_date = self.kwargs['end_date']
+            return Expense.objects.filter(category__owner=user, created_at__range=[start_date, end_date])\
+                .order_by('-created_at')
         return Expense.objects.filter(category__owner=user).order_by('-created_at')
 
 
